@@ -1,0 +1,14 @@
+---- HAL_UART_RxCpltCallback Matches (13 in 4 files) ----
+debug.h (D:\project\MKB0908\MKB0908_Demo\usrApp) line 121 : //void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart); // 串口接收回调函数
+HAL_UART_UnRegisterCallback in stm32f7xx_hal_uart.c (D:\project\MKB0908\MKB0908_Demo\Drivers\STM32F7xx_HAL_Driver\Src) :         huart->RxCpltCallback = HAL_UART_RxCpltCallback;                       /* Legacy weak RxCpltCallback            */
+stm32f7xx_hal_uart.c (D:\project\MKB0908\MKB0908_Demo\Drivers\STM32F7xx_HAL_Driver\Src) line 937 :            The HAL_UART_TxCpltCallback(), HAL_UART_RxCpltCallback() user callbacks
+stm32f7xx_hal_uart.c (D:\project\MKB0908\MKB0908_Demo\Drivers\STM32F7xx_HAL_Driver\Src) line 961 :         (+) HAL_UART_RxCpltCallback()
+HAL_UART_DMAStop in stm32f7xx_hal_uart.c (D:\project\MKB0908\MKB0908_Demo\Drivers\STM32F7xx_HAL_Driver\Src) :      to call the HAL UART API under callbacks HAL_UART_TxCpltCallback() / HAL_UART_RxCpltCallback() /
+stm32f7xx_hal_uart.c (D:\project\MKB0908\MKB0908_Demo\Drivers\STM32F7xx_HAL_Driver\Src) line 2324 : __weak void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+HAL_UART_RxCpltCallback in stm32f7xx_hal_uart.c (D:\project\MKB0908\MKB0908_Demo\Drivers\STM32F7xx_HAL_Driver\Src) :             the HAL_UART_RxCpltCallback can be implemented in the user file.
+UART_InitCallbacksToDefault in stm32f7xx_hal_uart.c (D:\project\MKB0908\MKB0908_Demo\Drivers\STM32F7xx_HAL_Driver\Src) :   huart->RxCpltCallback            = HAL_UART_RxCpltCallback;            /* Legacy weak RxCpltCallback            */
+UART_DMAReceiveCplt in stm32f7xx_hal_uart.c (D:\project\MKB0908\MKB0908_Demo\Drivers\STM32F7xx_HAL_Driver\Src) :   HAL_UART_RxCpltCallback(huart);
+UART_RxISR_8BIT in stm32f7xx_hal_uart.c (D:\project\MKB0908\MKB0908_Demo\Drivers\STM32F7xx_HAL_Driver\Src) :       HAL_UART_RxCpltCallback(huart);
+UART_RxISR_16BIT in stm32f7xx_hal_uart.c (D:\project\MKB0908\MKB0908_Demo\Drivers\STM32F7xx_HAL_Driver\Src) :       HAL_UART_RxCpltCallback(huart);
+stm32f7xx_hal_uart.h (D:\project\MKB0908\MKB0908_Demo\Drivers\STM32F7xx_HAL_Driver\Inc) line 1455 : void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
+USART2_IRQHandler in stm32f7xx_it.c (D:\project\MKB0908\MKB0908_Demo\Core\Src) : 	  HAL_UART_RxCpltCallback(&huart2);
