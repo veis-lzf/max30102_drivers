@@ -1,0 +1,2 @@
+../pfv_drivers/max30102_if.c:24:9:Heart_Sensor_Init	1
+../pfv_drivers/max30102_if.c:38:9:Get_HeartRate_and_Oxygen	11

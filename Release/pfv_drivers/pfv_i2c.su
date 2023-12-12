@@ -1,3 +1,4 @@
-../pfv_drivers/pfv_i2c.c:61:9:pfv_I2C_Config	48	static
-../pfv_drivers/pfv_i2c.c:138:9:pfc_I2C_WriteByte	32	static
-../pfv_drivers/pfv_i2c.c:171:9:pfv_I2C_ReadByte	24	static
+../pfv_drivers/pfv_i2c.c:60:9:pfv_I2C_Config	48	static
+../pfv_drivers/pfv_i2c.c:140:9:pfc_I2C_WriteByte	32	static
+../pfv_drivers/pfv_i2c.c:174:9:pfv_I2C_ReadByte	24	static
+../pfv_drivers/pfv_i2c.c:209:9:pfv_I2C_ReadMultByte	24	static

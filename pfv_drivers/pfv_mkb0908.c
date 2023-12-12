@@ -1,40 +1,41 @@
 #include "pfv_i2c.h"
 #include "pfv_usart.h"
 #include "pfv_mkb0908.h"
-
+#include "debug.h"
+#include <string.h>
 // 操作状态
 static volatile uint8_t ret_status = MKB0908_Dev_RET_ERROR;
 
-MKB0908_Device_t g_MKB0908_Device = 
+MKB0908_Device_t g_MKB0908_Device =
 {
 #if (INTERFACE_MODE == USE_I2C_MODE)
 	.m_address = 0xa0,
 	.m_i2cx = I2C_Seq1,
 #elif (INTERFACE_MODE == USE_UART_MODE)
-	.m_uartx = USART_Seq2,
-	.m_baud = 115200,
+		.m_uartx = USART_Seq2, .m_baud = DEV_BAUD_RATE,
 #endif
-	.m_calibration_status = Calibration_OK,
-	.m_erase_status = ERASE_EEPROM_OK,
-	.m_dev_status = 0xff,
-	.m_sensor_data = {0},
+		.m_calibration_status = Calibration_OK, .m_erase_status =
+				ERASE_EEPROM_OK, .m_dev_status = 0xff, .m_sensor_data =
+		{ 0 },
 #ifdef SUPPORT_CRC8 /* 如果支持CRC8校验 */
 	.m_crc8 = 0,
 #endif
 
-};
+		};
 
 static uint8_t MKB0908_SendCommand(MKB0908_Device_t *obj, uint8_t cmd)
 {
 	uint8_t ret = 0;
-	uint8_t init_data[6] = {cmd, 0, 0, 0, 0, 0};
+	uint8_t init_data[] =
+	{ cmd, 0, 0, 0, 0, 0 };
 
 	// 默认初始化为ERROR状态
 	ret_status = MKB0908_Dev_RET_ERROR;
-	
+
 #if (INTERFACE_MODE == USE_UART_MODE)
-	ret = pfc_USART_WriteBuffer(obj->m_uartx, init_data, sizeof(init_data) / sizeof(uint8_t));
-	if(ret == USART_RET_ERROR)
+	ret = pfc_USART_WriteBuffer(obj->m_uartx, init_data,
+			sizeof(init_data) / sizeof(uint8_t));
+	if (ret == USART_RET_ERROR)
 	{
 		return MKB0908_Dev_RET_ERROR;
 	}
@@ -59,17 +60,19 @@ static uint8_t MKB0908_SendCommand(MKB0908_Device_t *obj, uint8_t cmd)
 uint8_t MKB0908_SensorConfig(MKB0908_Device_t *obj)
 {
 	assert_param(obj == NULL);
-	uint8_t init_data[6] = {CMD_BLOOD_PRESSURE_CALIBRATION, 0, 0, 0, 0, 0};
+	uint8_t init_data[6] =
+	{ CMD_BLOOD_PRESSURE_CALIBRATION, 0, 0, 0, 0, 0 };
 	uint8_t ret = 0;
-	
+
 #if (INTERFACE_MODE == USE_UART_MODE)
 	pfv_USART_Config(obj->m_uartx, obj->m_baud);
-	ret = pfc_USART_WriteBuffer(obj->m_uartx, init_data, sizeof(init_data) / sizeof(uint8_t));
-	if(ret == USART_RET_ERROR)
+	ret = pfc_USART_WriteBuffer(obj->m_uartx, init_data,
+			sizeof(init_data) / sizeof(uint8_t));
+	if (ret == USART_RET_ERROR)
 	{
 		return MKB0908_Dev_RET_ERROR;
 	}
-	
+
 #elif (INTERFACE_MODE == USE_I2C_MODE)
 	uint8_t i = 0;
 
@@ -82,9 +85,8 @@ uint8_t MKB0908_SensorConfig(MKB0908_Device_t *obj)
 			return MKB0908_Dev_RET_ERROR;
 		}
 	}
-
 #endif
-	
+
 	return MKB0908_Dev_RET_OK;
 }
 
@@ -96,8 +98,9 @@ uint8_t MKB0908_Read_NormalData(MKB0908_Device_t *obj)
 {
 	assert_param(obj == NULL);
 	uint8_t ret;
-	
-	ret = MKB0908_SendCommand(obj, CMD_GET_HEARTRATE_AND_BLOODPRESSURE_AND_TEMPERATURE);
+
+	ret = MKB0908_SendCommand(obj,
+	CMD_GET_HEARTRATE_AND_BLOODPRESSURE_AND_TEMPERATURE);
 
 	return ret;
 }
@@ -110,9 +113,9 @@ uint8_t MKB0908_Read_PPG_Data(MKB0908_Device_t *obj)
 {
 	assert_param(obj == NULL);
 	uint8_t ret;
-	
+
 	ret = MKB0908_SendCommand(obj, CMD_READ_PULSE_SIGNAL);
-	
+
 	return ret;
 }
 
@@ -124,7 +127,7 @@ uint8_t MKB0908_Read_ECG_Data(MKB0908_Device_t *obj)
 {
 	assert_param(obj == NULL);
 	uint8_t ret;
-	
+
 	ret = MKB0908_SendCommand(obj, CMD_READ_ECG_SIGNAL);
 
 	return ret;
@@ -164,49 +167,57 @@ uint8_t MKB0908_Read_HRV_Data(MKB0908_Device_t *obj)
 // 解析串口协议
 void Receive_Handle(void)
 {
-	switch (rx_buffer[0]) // 分类协议头
+//	p_dbg_enter;
+//	p_dbg_track;
+	p_dbg("%x,%x,%x,%x,%x,%x", rx_buffer[0], rx_buffer[1], rx_buffer[2],
+			rx_buffer[3], rx_buffer[4], rx_buffer[5]);
+	switch (rx_buffer[0])
+	// 分类协议头
 	{
-		// 校准应答0xfb
-		case CMD_BLOOD_PRESSURE_CALIBRATION_ACK:
+	// 校准应答0xfb
+	case CMD_BLOOD_PRESSURE_CALIBRATION_ACK:
 #if (INTERFACE_MODE == USE_UART_MODE && MKB0908_DEV_MAIN_VERSION >= VERSION_V19)
 		// HRV数据获取0xf1
-		case CMD_READ_HRV_DATA_ACK:
+	case CMD_READ_HRV_DATA_ACK:
 #endif
 		// 擦除eeprom应答0xfa
-		case CMD_ERASE_EEPROM_ACK:
+	case CMD_ERASE_EEPROM_ACK:
 		// 工作状态应答0xf8
-		case CMD_READ_MODULE_WORKING_STATUS_ACK:
-			g_MKB0908_Device.m_calibration_status = rx_buffer[3];
-			ret_status = MKB0908_Dev_RET_OK;
-			break;
-		
+	case CMD_READ_MODULE_WORKING_STATUS_ACK:
+		g_MKB0908_Device.m_calibration_status = rx_buffer[3];
+		ret_status = MKB0908_Dev_RET_OK;
+		break;
+
 		// 获取血压温度脉率数据0xfd
-		case CMD_GET_HEARTRATE_AND_BLOODPRESSURE_AND_TEMPERATURE_ACK:
-			g_MKB0908_Device.m_sensor_data.m_SystolicBloodPressure = rx_buffer[1];
-			g_MKB0908_Device.m_sensor_data.m_Diastolic_BloodPressure = rx_buffer[2];
-			g_MKB0908_Device.m_sensor_data.m_PulseRate = rx_buffer[3];
-			g_MKB0908_Device.m_sensor_data.m_tmperature_byte[0] = rx_buffer[5];
-			g_MKB0908_Device.m_sensor_data.m_tmperature_byte[1] = rx_buffer[4];
-			ret_status = MKB0908_Dev_RET_OK;
-			break;
-		
+	case CMD_GET_HEARTRATE_AND_BLOODPRESSURE_AND_TEMPERATURE_ACK:
+		g_MKB0908_Device.m_sensor_data.m_SystolicBloodPressure = rx_buffer[1];
+		g_MKB0908_Device.m_sensor_data.m_Diastolic_BloodPressure = rx_buffer[2];
+		g_MKB0908_Device.m_sensor_data.m_PulseRate = rx_buffer[3];
+		g_MKB0908_Device.m_sensor_data.m_tmperature_byte[0] = rx_buffer[5];
+		g_MKB0908_Device.m_sensor_data.m_tmperature_byte[1] = rx_buffer[4];
+		ret_status = MKB0908_Dev_RET_OK;
+		break;
+
 		// 脉搏信号0xfc
-		case CMD_READ_PULSE_SIGNAL_ACK:
+	case CMD_READ_PULSE_SIGNAL_ACK:
 		// ECG脉搏信号获取0xf9
-		case CMD_READ_ECG_SIGNAL_ACK:
+	case CMD_READ_ECG_SIGNAL_ACK:
 #if (INTERFACE_MODE == USE_UART_MODE && MKB0908_DEV_MAIN_VERSION >= VERSION_V19)
 		// 版本获取0xf3
-		case CMD_READ_VERSION_ACK:
+	case CMD_READ_VERSION_ACK:
 #endif
-			g_MKB0908_Device.m_sensor_data.m_version = (rx_buffer[2] << 8) | rx_buffer[3];
-			ret_status = MKB0908_Dev_RET_OK;
-			break;
+		g_MKB0908_Device.m_sensor_data.m_version = (rx_buffer[2] << 8)
+				| rx_buffer[3];
+		ret_status = MKB0908_Dev_RET_OK;
+		break;
 
 		// 缺省
-		default:
-			ret_status = MKB0908_Dev_RET_ERROR;
-			break;
+	default:
+		ret_status = MKB0908_Dev_RET_ERROR;
+		break;
 	}
+	memset(rx_buffer, 0, RX_BUFFER_SIZE);
+//	p_dbg_exit;
 }
 
 /*
@@ -245,5 +256,4 @@ uint8_t CRC8_calc(uint8_t *Data, int length)
 }
 
 #endif
-
 

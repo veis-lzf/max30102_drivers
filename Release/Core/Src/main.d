@@ -30,7 +30,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h \
  ../Core/Inc/dma.h ../Core/Inc/main.h ../Core/Inc/eth.h ../Core/Inc/i2c.h \
  ../Core/Inc/usart.h ../Core/Inc/usb_otg.h ../Core/Inc/gpio.h \
- D:/project/MKB0908/MKB0908_Demo/pfv_drivers/pfv_mkb0908.h \
+ D:/project/MKB0908/MKB0908_Demo/pfv_drivers/max30102_if.h \
+ D:/project/MKB0908/MKB0908_Demo/pfv_drivers/pfv_max30102.h \
  D:/project/MKB0908/MKB0908_Demo/usrApp/debug.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:
@@ -69,5 +70,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/usart.h:
 ../Core/Inc/usb_otg.h:
 ../Core/Inc/gpio.h:
-D:/project/MKB0908/MKB0908_Demo/pfv_drivers/pfv_mkb0908.h:
+D:/project/MKB0908/MKB0908_Demo/pfv_drivers/max30102_if.h:
+D:/project/MKB0908/MKB0908_Demo/pfv_drivers/pfv_max30102.h:
 D:/project/MKB0908/MKB0908_Demo/usrApp/debug.h:

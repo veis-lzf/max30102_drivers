@@ -29,7 +29,8 @@ pfv_drivers/pfv_mkb0908.o: ../pfv_drivers/pfv_mkb0908.c \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_pwr_ex.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h \
- ../pfv_drivers/pfv_usart.h ../pfv_drivers/pfv_mkb0908.h
+ ../pfv_drivers/pfv_usart.h ../pfv_drivers/pfv_mkb0908.h \
+ D:/project/MKB0908/MKB0908_Demo/usrApp/debug.h
 ../pfv_drivers/pfv_i2c.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:
@@ -63,3 +64,4 @@ pfv_drivers/pfv_mkb0908.o: ../pfv_drivers/pfv_mkb0908.c \
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h:
 ../pfv_drivers/pfv_usart.h:
 ../pfv_drivers/pfv_mkb0908.h:
+D:/project/MKB0908/MKB0908_Demo/usrApp/debug.h:

@@ -28,11 +28,8 @@ typedef enum
 /* 状态码 */
 typedef enum
 {
-	USART_RET_OK,
-	USART_RET_BUSY,
-	USART_RET_ERROR,
+	USART_RET_OK, USART_RET_BUSY, USART_RET_ERROR,
 } USART_Status_t;
-
 
 /* @bref 配置USART
  * @param usartx USART逻辑序号
@@ -70,5 +67,10 @@ uint8_t pfv_USART_ReadByte(uint8_t usartx, uint8_t *p_data);
  * @retval 读取成功返回USART_RET_OK，失败返回USART_RET_ERROR
  */
 uint8_t pfv_USART_ReadBuffer(uint8_t usartx, uint8_t *p_data, uint8_t len);
+
+/**
+ * @bref 串口接收回调处理函数
+ */
+void UART2_Callback_Handler(void);
 
 #endif /* __PFV_USART_H__ */

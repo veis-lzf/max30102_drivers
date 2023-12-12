@@ -1,91 +1,91 @@
 /**
-  ******************************************************************************
-  * @file    stm32f7xx_hal_tim_ex.c
-  * @author  MCD Application Team
-  * @brief   TIM HAL module driver.
-  *          This file provides firmware functions to manage the following
-  *          functionalities of the Timer Extended peripheral:
-  *           + Time Hall Sensor Interface Initialization
-  *           + Time Hall Sensor Interface Start
-  *           + Time Complementary signal break and dead time configuration
-  *           + Time Master and Slave synchronization configuration
-  *           + Time Output Compare/PWM Channel Configuration (for channels 5 and 6)
-  *           + Timer remapping capabilities configuration
-  @verbatim
-  ==============================================================================
-                      ##### TIMER Extended features #####
-  ==============================================================================
-  [..]
-    The Timer Extended features include:
-    (#) Complementary outputs with programmable dead-time for :
-        (++) Output Compare
-        (++) PWM generation (Edge and Center-aligned Mode)
-        (++) One-pulse mode output
-    (#) Synchronization circuit to control the timer with external signals and to
-        interconnect several timers together.
-    (#) Break input to put the timer output signals in reset state or in a known state.
-    (#) Supports incremental (quadrature) encoder and hall-sensor circuitry for
-        positioning purposes
+ ******************************************************************************
+ * @file    stm32f7xx_hal_tim_ex.c
+ * @author  MCD Application Team
+ * @brief   TIM HAL module driver.
+ *          This file provides firmware functions to manage the following
+ *          functionalities of the Timer Extended peripheral:
+ *           + Time Hall Sensor Interface Initialization
+ *           + Time Hall Sensor Interface Start
+ *           + Time Complementary signal break and dead time configuration
+ *           + Time Master and Slave synchronization configuration
+ *           + Time Output Compare/PWM Channel Configuration (for channels 5 and 6)
+ *           + Timer remapping capabilities configuration
+ @verbatim
+ ==============================================================================
+ ##### TIMER Extended features #####
+ ==============================================================================
+ [..]
+ The Timer Extended features include:
+ (#) Complementary outputs with programmable dead-time for :
+ (++) Output Compare
+ (++) PWM generation (Edge and Center-aligned Mode)
+ (++) One-pulse mode output
+ (#) Synchronization circuit to control the timer with external signals and to
+ interconnect several timers together.
+ (#) Break input to put the timer output signals in reset state or in a known state.
+ (#) Supports incremental (quadrature) encoder and hall-sensor circuitry for
+ positioning purposes
 
-            ##### How to use this driver #####
-  ==============================================================================
-    [..]
-     (#) Initialize the TIM low level resources by implementing the following functions
-         depending on the selected feature:
-           (++) Hall Sensor output : HAL_TIMEx_HallSensor_MspInit()
+ ##### How to use this driver #####
+ ==============================================================================
+ [..]
+ (#) Initialize the TIM low level resources by implementing the following functions
+ depending on the selected feature:
+ (++) Hall Sensor output : HAL_TIMEx_HallSensor_MspInit()
 
-     (#) Initialize the TIM low level resources :
-        (##) Enable the TIM interface clock using __HAL_RCC_TIMx_CLK_ENABLE();
-        (##) TIM pins configuration
-            (+++) Enable the clock for the TIM GPIOs using the following function:
-              __HAL_RCC_GPIOx_CLK_ENABLE();
-            (+++) Configure these TIM pins in Alternate function mode using HAL_GPIO_Init();
+ (#) Initialize the TIM low level resources :
+ (##) Enable the TIM interface clock using __HAL_RCC_TIMx_CLK_ENABLE();
+ (##) TIM pins configuration
+ (+++) Enable the clock for the TIM GPIOs using the following function:
+ __HAL_RCC_GPIOx_CLK_ENABLE();
+ (+++) Configure these TIM pins in Alternate function mode using HAL_GPIO_Init();
 
-     (#) The external Clock can be configured, if needed (the default clock is the
-         internal clock from the APBx), using the following function:
-         HAL_TIM_ConfigClockSource, the clock configuration should be done before
-         any start function.
+ (#) The external Clock can be configured, if needed (the default clock is the
+ internal clock from the APBx), using the following function:
+ HAL_TIM_ConfigClockSource, the clock configuration should be done before
+ any start function.
 
-     (#) Configure the TIM in the desired functioning mode using one of the
-         initialization function of this driver:
-          (++) HAL_TIMEx_HallSensor_Init() and HAL_TIMEx_ConfigCommutEvent(): to use the
-               Timer Hall Sensor Interface and the commutation event with the corresponding
-               Interrupt and DMA request if needed (Note that One Timer is used to interface
-               with the Hall sensor Interface and another Timer should be used to use
-               the commutation event).
+ (#) Configure the TIM in the desired functioning mode using one of the
+ initialization function of this driver:
+ (++) HAL_TIMEx_HallSensor_Init() and HAL_TIMEx_ConfigCommutEvent(): to use the
+ Timer Hall Sensor Interface and the commutation event with the corresponding
+ Interrupt and DMA request if needed (Note that One Timer is used to interface
+ with the Hall sensor Interface and another Timer should be used to use
+ the commutation event).
 
-     (#) Activate the TIM peripheral using one of the start functions:
-           (++) Complementary Output Compare : HAL_TIMEx_OCN_Start(), HAL_TIMEx_OCN_Start_DMA(), HAL_TIMEx_OC_Start_IT()
-           (++) Complementary PWM generation : HAL_TIMEx_PWMN_Start(), HAL_TIMEx_PWMN_Start_DMA(), HAL_TIMEx_PWMN_Start_IT()
-           (++) Complementary One-pulse mode output : HAL_TIMEx_OnePulseN_Start(), HAL_TIMEx_OnePulseN_Start_IT()
-           (++) Hall Sensor output : HAL_TIMEx_HallSensor_Start(), HAL_TIMEx_HallSensor_Start_DMA(), HAL_TIMEx_HallSensor_Start_IT().
+ (#) Activate the TIM peripheral using one of the start functions:
+ (++) Complementary Output Compare : HAL_TIMEx_OCN_Start(), HAL_TIMEx_OCN_Start_DMA(), HAL_TIMEx_OC_Start_IT()
+ (++) Complementary PWM generation : HAL_TIMEx_PWMN_Start(), HAL_TIMEx_PWMN_Start_DMA(), HAL_TIMEx_PWMN_Start_IT()
+ (++) Complementary One-pulse mode output : HAL_TIMEx_OnePulseN_Start(), HAL_TIMEx_OnePulseN_Start_IT()
+ (++) Hall Sensor output : HAL_TIMEx_HallSensor_Start(), HAL_TIMEx_HallSensor_Start_DMA(), HAL_TIMEx_HallSensor_Start_IT().
 
-  @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */
+ @endverbatim
+ ******************************************************************************
+ * @attention
+ *
+ * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+ * All rights reserved.</center></h2>
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ ******************************************************************************
+ */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f7xx_hal.h"
 
 /** @addtogroup STM32F7xx_HAL_Driver
-  * @{
-  */
+ * @{
+ */
 
 /** @defgroup TIMEx TIMEx
-  * @brief TIM Extended HAL module driver
-  * @{
-  */
+ * @brief TIM Extended HAL module driver
+ * @{
+ */
 
 #ifdef HAL_TIM_MODULE_ENABLED
 
@@ -2144,11 +2144,11 @@ static void TIM_CCxNChannelCmd(TIM_TypeDef *TIMx, uint32_t Channel, uint32_t Cha
 
 #endif /* HAL_TIM_MODULE_ENABLED */
 /**
-  * @}
-  */
+ * @}
+ */
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -1,4 +1,4 @@
-  #ifndef _DEBUG_H
+#ifndef _DEBUG_H
 #define _DEBUG_H
 
 #include <stdio.h>
@@ -6,7 +6,6 @@
 
 /* keil中默认不支持匿名联合体，故需要声明下 */
 //#pragma anon_unions
-
 #define RX_BUF_MAX_LEN 1024 //最大接收缓存字节数
 
 #ifndef DEBUG_USART
@@ -21,14 +20,13 @@
 
 typedef enum DebugLevel
 {
-    IOT_LOG_LEVEL_DEBUG = 0,     //此输出级别用于开发阶段的调试，可以是某几个逻辑关键点的变量值的输出，或者是函数返回值的验证等等   
-    IOT_LOG_LEVEL_INFO,          //此输出级别常用语业务事件信息。例如某项业务处理完毕，或者业务处理过程中的一些信息
-    IOT_LOG_LEVEL_WARN,          //代表存在潜在的错误，或者触发了容易引起错误的操作。程序可以继续运行，但必须多加注意
-    IOT_LOG_LEVEL_ERROR,         //代表发生了必须马上处理的错误。此类错误出现以后可以允许程序继续运行，但必须马上修正，如果不修正，就会导致不能完成相应的业务。
-    IOT_LOG_LEVEL_FATAL,         //代表发生了最严重的错误，会导致整个服务停止（或者需要整个服务停止）。简单地说就是服务死掉了。
-    IOT_LOG_LEVEL_NONE,          //
+	IOT_LOG_LEVEL_DEBUG = 0, //此输出级别用于开发阶段的调试，可以是某几个逻辑关键点的变量值的输出，或者是函数返回值的验证等等   
+	IOT_LOG_LEVEL_INFO,          //此输出级别常用语业务事件信息。例如某项业务处理完毕，或者业务处理过程中的一些信息
+	IOT_LOG_LEVEL_WARN,          //代表存在潜在的错误，或者触发了容易引起错误的操作。程序可以继续运行，但必须多加注意
+	IOT_LOG_LEVEL_ERROR, //代表发生了必须马上处理的错误。此类错误出现以后可以允许程序继续运行，但必须马上修正，如果不修正，就会导致不能完成相应的业务。
+	IOT_LOG_LEVEL_FATAL,        //代表发生了最严重的错误，会导致整个服务停止（或者需要整个服务停止）。简单地说就是服务死掉了。
+	IOT_LOG_LEVEL_NONE,          //
 } iot_log_level_t;
-
 
 #define DEBUG_USER 1
 #define RELEASE_VERSION			0		// 置1后将关闭所有打印信息
@@ -102,13 +100,13 @@ do																	 \
 typedef struct // 串口数据帧的处理结构体
 {
 	uint8_t *pRxBuffer;
-	union 
+	union
 	{
 		__IO uint16_t InfAll;
 		struct
 		{
-			__IO uint16_t FramLength : 15;	// 14:0
-			__IO uint16_t FramFinishFlag : 1; // 15
+			__IO uint16_t FramLength :15;	// 14:0
+			__IO uint16_t FramFinishFlag :1; // 15
 		} InfBit;
 	};
 } STRUCT_USARTx_Fram;

@@ -5,17 +5,26 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../pfv_drivers/algorithm.c \
+../pfv_drivers/max30102_if.c \
 ../pfv_drivers/pfv_i2c.c \
+../pfv_drivers/pfv_max30102.c \
 ../pfv_drivers/pfv_mkb0908.c \
 ../pfv_drivers/pfv_usart.c 
 
 OBJS += \
+./pfv_drivers/algorithm.o \
+./pfv_drivers/max30102_if.o \
 ./pfv_drivers/pfv_i2c.o \
+./pfv_drivers/pfv_max30102.o \
 ./pfv_drivers/pfv_mkb0908.o \
 ./pfv_drivers/pfv_usart.o 
 
 C_DEPS += \
+./pfv_drivers/algorithm.d \
+./pfv_drivers/max30102_if.d \
 ./pfv_drivers/pfv_i2c.d \
+./pfv_drivers/pfv_max30102.d \
 ./pfv_drivers/pfv_mkb0908.d \
 ./pfv_drivers/pfv_usart.d 
 
@@ -27,7 +36,7 @@ pfv_drivers/%.o pfv_drivers/%.su pfv_drivers/%.cyclo: ../pfv_drivers/%.c pfv_dri
 clean: clean-pfv_drivers
 
 clean-pfv_drivers:
-	-$(RM) ./pfv_drivers/pfv_i2c.cyclo ./pfv_drivers/pfv_i2c.d ./pfv_drivers/pfv_i2c.o ./pfv_drivers/pfv_i2c.su ./pfv_drivers/pfv_mkb0908.cyclo ./pfv_drivers/pfv_mkb0908.d ./pfv_drivers/pfv_mkb0908.o ./pfv_drivers/pfv_mkb0908.su ./pfv_drivers/pfv_usart.cyclo ./pfv_drivers/pfv_usart.d ./pfv_drivers/pfv_usart.o ./pfv_drivers/pfv_usart.su
+	-$(RM) ./pfv_drivers/algorithm.cyclo ./pfv_drivers/algorithm.d ./pfv_drivers/algorithm.o ./pfv_drivers/algorithm.su ./pfv_drivers/max30102_if.cyclo ./pfv_drivers/max30102_if.d ./pfv_drivers/max30102_if.o ./pfv_drivers/max30102_if.su ./pfv_drivers/pfv_i2c.cyclo ./pfv_drivers/pfv_i2c.d ./pfv_drivers/pfv_i2c.o ./pfv_drivers/pfv_i2c.su ./pfv_drivers/pfv_max30102.cyclo ./pfv_drivers/pfv_max30102.d ./pfv_drivers/pfv_max30102.o ./pfv_drivers/pfv_max30102.su ./pfv_drivers/pfv_mkb0908.cyclo ./pfv_drivers/pfv_mkb0908.d ./pfv_drivers/pfv_mkb0908.o ./pfv_drivers/pfv_mkb0908.su ./pfv_drivers/pfv_usart.cyclo ./pfv_drivers/pfv_usart.d ./pfv_drivers/pfv_usart.o ./pfv_drivers/pfv_usart.su
 
 .PHONY: clean-pfv_drivers
 

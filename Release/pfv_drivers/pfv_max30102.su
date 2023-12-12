@@ -1,0 +1,9 @@
+../pfv_drivers/pfv_max30102.c:20:9:max30102_Bus_Write	8	static
+../pfv_drivers/pfv_max30102.c:72:9:max30102_Bus_Read	16	static
+../pfv_drivers/pfv_max30102.c:136:6:max30102_FIFO_ReadBytes	24	static
+../pfv_drivers/pfv_max30102.c:207:6:max30102_reset	8	static
+../pfv_drivers/pfv_max30102.c:216:6:maxim_max30102_write_reg	4	static
+../pfv_drivers/pfv_max30102.c:231:6:maxim_max30102_read_reg	4	static
+../pfv_drivers/pfv_max30102.c:246:6:maxim_max30102_read_fifo	24	static
+../pfv_drivers/pfv_max30102.c:283:10:max30102_readDeviceID	16	static
+../pfv_drivers/pfv_max30102.c:295:9:max30102_init	40	static
