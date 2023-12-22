@@ -59,9 +59,9 @@ I2C_Device_t I2C_Dev_Tree[] =
  */
 uint8_t pfv_I2C_Config(uint8_t i2cx, uint8_t mode, uint8_t speed)
 {
-	assert_param(i2cx >= I2C_Seq_NULL);
-	assert_param(mode >= I2C_Mode_NULL);
-	assert_param(speed >= I2C_Speed_NULL);
+	assert_param(i2cx < I2C_Seq_NULL);
+	assert_param(mode < I2C_Mode_NULL);
+	assert_param(speed < I2C_Speed_NULL);
 
 	if (i2cx == I2C_Seq1)
 	{
@@ -140,7 +140,7 @@ uint8_t pfv_I2C_Config(uint8_t i2cx, uint8_t mode, uint8_t speed)
 uint8_t pfc_I2C_WriteByte(uint8_t i2cx, uint8_t device_addr, uint16_t reg_addr,
 		uint8_t reg_data)
 {
-	assert_param(i2cx >= I2C_Seq_NULL);
+	assert_param(i2cx < I2C_Seq_NULL);
 
 	if (i2cx == I2C_Seq1)
 	{
@@ -174,8 +174,8 @@ uint8_t pfc_I2C_WriteByte(uint8_t i2cx, uint8_t device_addr, uint16_t reg_addr,
 uint8_t pfv_I2C_ReadByte(uint8_t i2cx, uint8_t device_addr, uint16_t reg_addr,
 		uint8_t *p_data)
 {
-	assert_param(i2cx >= I2C_Seq_NULL);
-	assert_param(p_data == NULL);
+	assert_param(i2cx < I2C_Seq_NULL);
+	assert_param(p_data != NULL);
 
 	if (i2cx == I2C_Seq1)
 	{
@@ -209,8 +209,8 @@ uint8_t pfv_I2C_ReadByte(uint8_t i2cx, uint8_t device_addr, uint16_t reg_addr,
 uint8_t pfv_I2C_ReadMultByte(uint8_t i2cx, uint8_t device_addr,
 		uint16_t reg_addr, uint8_t *p_data, uint8_t nsize)
 {
-	assert_param(i2cx >= I2C_Seq_NULL);
-	assert_param(p_data == NULL);
+	assert_param(i2cx < I2C_Seq_NULL);
+	assert_param(p_data != NULL);
 
 	if (i2cx == I2C_Seq1)
 	{

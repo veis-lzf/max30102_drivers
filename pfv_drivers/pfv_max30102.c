@@ -295,8 +295,7 @@ uint16_t max30102_readDeviceID(void)
 uint8_t max30102_init(void)
 {
 #ifdef SUPPORT_INT_PIN
-	GPIO_InitTypeDef GPIO_InitStructure =
-	{ 0 };
+ 	GPIO_InitTypeDef GPIO_InitStructure = { 0 };
 	__HAL_RCC_GPIOB_CLK_ENABLE();
 
 	GPIO_InitStructure.Pin = MAX30102_INT_PIN;

@@ -59,7 +59,7 @@ static uint8_t MKB0908_SendCommand(MKB0908_Device_t *obj, uint8_t cmd)
  */
 uint8_t MKB0908_SensorConfig(MKB0908_Device_t *obj)
 {
-	assert_param(obj == NULL);
+	assert_param(obj != NULL);
 	uint8_t init_data[6] =
 	{ CMD_BLOOD_PRESSURE_CALIBRATION, 0, 0, 0, 0, 0 };
 	uint8_t ret = 0;
@@ -96,7 +96,7 @@ uint8_t MKB0908_SensorConfig(MKB0908_Device_t *obj)
  */
 uint8_t MKB0908_Read_NormalData(MKB0908_Device_t *obj)
 {
-	assert_param(obj == NULL);
+	assert_param(obj != NULL);
 	uint8_t ret;
 
 	ret = MKB0908_SendCommand(obj,
@@ -111,7 +111,7 @@ uint8_t MKB0908_Read_NormalData(MKB0908_Device_t *obj)
  */
 uint8_t MKB0908_Read_PPG_Data(MKB0908_Device_t *obj)
 {
-	assert_param(obj == NULL);
+	assert_param(obj != NULL);
 	uint8_t ret;
 
 	ret = MKB0908_SendCommand(obj, CMD_READ_PULSE_SIGNAL);
@@ -125,7 +125,7 @@ uint8_t MKB0908_Read_PPG_Data(MKB0908_Device_t *obj)
  */
 uint8_t MKB0908_Read_ECG_Data(MKB0908_Device_t *obj)
 {
-	assert_param(obj == NULL);
+	assert_param(obj != NULL);
 	uint8_t ret;
 
 	ret = MKB0908_SendCommand(obj, CMD_READ_ECG_SIGNAL);
@@ -141,7 +141,7 @@ uint8_t MKB0908_Read_ECG_Data(MKB0908_Device_t *obj)
  */
 uint8_t MKB0908_ReadVersion(MKB0908_Device_t *obj)
 {
-	assert_param(obj == NULL);
+	assert_param(obj != NULL);
 	uint8_t ret;
 
 	ret = MKB0908_SendCommand(obj, CMD_READ_VERSION);
@@ -155,7 +155,7 @@ uint8_t MKB0908_ReadVersion(MKB0908_Device_t *obj)
  */
 uint8_t MKB0908_Read_HRV_Data(MKB0908_Device_t *obj)
 {
-	assert_param(obj == NULL);
+	assert_param(obj != NULL);
 	uint8_t ret;
 
 	ret = MKB0908_SendCommand(obj, CMD_READ_HRV_DATA);

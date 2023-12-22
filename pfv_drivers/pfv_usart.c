@@ -3,8 +3,7 @@
 #include <string.h>
 
 // 串口DMA接收缓冲区
-uint8_t rx_buffer[RX_BUFFER_SIZE] =
-{ 0 };
+uint8_t rx_buffer[RX_BUFFER_SIZE] = { 0 };
 uint32_t rx_len = 0;
 
 /* @bref 配置USART
@@ -14,7 +13,7 @@ uint32_t rx_len = 0;
  */
 uint8_t pfv_USART_Config(uint8_t usartx, uint32_t baudrate)
 {
-	assert_param(usartx >= USART_Seq_NULL);
+	assert_param(usartx < USART_Seq_NULL);
 
 	switch (usartx)
 	{
@@ -126,7 +125,7 @@ uint8_t pfv_USART_Config(uint8_t usartx, uint32_t baudrate)
  */
 uint8_t pfc_USART_WriteByte(uint8_t usartx, uint8_t data)
 {
-	assert_param(usartx >= USART_Seq_NULL);
+	assert_param(usartx < USART_Seq_NULL);
 
 	switch (usartx)
 	{
@@ -165,8 +164,8 @@ uint8_t pfc_USART_WriteByte(uint8_t usartx, uint8_t data)
  */
 uint8_t pfc_USART_WriteBuffer(uint8_t usartx, uint8_t *pbuf, uint32_t len)
 {
-	assert_param(usartx >= USART_Seq_NULL);
-	assert_param(pbuf == NULL);
+	assert_param(usartx < USART_Seq_NULL);
+	assert_param(pbuf != NULL);
 
 	switch (usartx)
 	{
@@ -204,8 +203,8 @@ uint8_t pfc_USART_WriteBuffer(uint8_t usartx, uint8_t *pbuf, uint32_t len)
  */
 uint8_t pfv_USART_ReadByte(uint8_t usartx, uint8_t *p_data)
 {
-	assert_param(usartx >= USART_Seq_NULL);
-	assert_param(p_data == NULL);
+	assert_param(usartx < USART_Seq_NULL);
+	assert_param(p_data != NULL);
 
 	switch (usartx)
 	{
@@ -244,8 +243,8 @@ uint8_t pfv_USART_ReadByte(uint8_t usartx, uint8_t *p_data)
  */
 uint8_t pfv_USART_ReadBuffer(uint8_t usartx, uint8_t *p_data, uint8_t len)
 {
-	assert_param(usartx >= USART_Seq_NULL);
-	assert_param(p_data == NULL);
+	assert_param(usartx < USART_Seq_NULL);
+	assert_param(p_data != NULL);
 
 	switch (usartx)
 	{
